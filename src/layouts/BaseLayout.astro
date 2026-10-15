@@ -1,0 +1,163 @@
+---
+import "../styles/global.css";
+import Logo from "../components/Logo.astro";
+import LanguageSwitcher from "../components/LanguageSwitcher.astro";
+import { defaultLocale, localePath, localeTags, locales, useTranslations, type Locale } from "../i18n";
+import { site } from "../site";
+
+interface Props {
+  locale: Locale;
+  path: string;
+  title?: string;
+  description?: string;
+}
+
+const { locale, path, title, description } = Astro.props;
+const t = useTranslations(locale);
+const pageTitle = title ? `${title} · ${site.appName}` : site.appName;
+const pageDescription = description ?? t("meta.description");
+const absolute = (l: Locale) => new URL(localePath(l, path), Astro.site).href;
+const year = new Date().getFullYear();
+
+const nav = [
+  { path: "", label: t("nav.home") },
+  { path: "privacy", label: t("nav.privacy") },
+  { path: "delete-account", label: t("nav.deleteAccount") },
+];
+---
+
+<!doctype html>
+<html lang={localeTags[locale]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
+    <link rel="canonical" href={absolute(locale)} />
+    {locales.map((l) => <link rel="alternate" hreflang={localeTags[l]} href={absolute(l)} />)}
+    <link rel="alternate" hreflang="x-default" href={absolute(defaultLocale)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.appName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={absolute(locale)} />
+    <meta property="og:locale" content={localeTags[locale]} />
+    <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111417" media="(prefers-color-scheme: dark)" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">{t("nav.skipToContent")}</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href={localePath(locale)}>
+          <Logo size={30} />
+          <span>{site.appName}</span>
+        </a>
+        <LanguageSwitcher locale={locale} path={path} />
+      </div>
+      <nav class="container site-nav" aria-label={site.appName}>
+        {
+          nav.map((item) => (
+            <a href={localePath(locale, item.path)} aria-current={item.path === path ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </header>
+    <main id="content" class="container">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© {year} {site.appName} · {t("footer.developer", { developer: site.developerName })}</span>
+        <span>
+          {t("footer.contact")}: <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -3rem;
+    padding: 0.5rem 0.9rem;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    border-radius: var(--radius-sm);
+    z-index: 10;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  .site-header {
+    border-bottom: 1px solid var(--color-outline);
+    background: var(--color-surface);
+    margin-bottom: 2.5rem;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.9rem 0.4rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--color-on-surface);
+    text-decoration: none;
+  }
+
+  .site-nav {
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+    padding-block: 0.25rem 0.5rem;
+  }
+
+  .site-nav a {
+    flex: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-on-surface-variant);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .site-nav a:hover {
+    color: var(--color-on-surface);
+    background: var(--color-surface-container);
+  }
+
+  .site-nav a[aria-current="page"] {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .site-footer {
+    margin-top: 4rem;
+    border-top: 1px solid var(--color-outline);
+    color: var(--color-on-surface-variant);
+    font-size: 0.9rem;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    padding-block: 1.5rem;
+  }
+</style>

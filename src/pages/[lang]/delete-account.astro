@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DeleteAccountForm from "../../components/DeleteAccountForm.astro";
+import { localeStaticPaths, requireLocale, useTranslations } from "../../i18n";
+import { site } from "../../site";
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const locale = requireLocale(Astro.params.lang);
+const t = useTranslations(locale);
+
+const deletedItems = [
+  "delete.whatItem.transactions",
+  "delete.whatItem.accounts",
+  "delete.whatItem.categories",
+  "delete.whatItem.settings",
+] as const;
+const inAppSteps = ["delete.inAppStep1", "delete.inAppStep2", "delete.inAppStep3"] as const;
+const [emailBefore, emailAfter] = t("delete.emailBody").split("{email}");
+---
+
+<BaseLayout locale={locale} path="delete-account" title={t("delete.title")} description={t("delete.description")}>
+  <h1>{t("delete.title")}</h1>
+  <p class="lead">{t("delete.lead", { app: site.appName })}</p>
+
+  <h2>{t("delete.whatHeading")}</h2>
+  <p>{t("delete.whatBody")}</p>
+  <ul>
+    {deletedItems.map((key) => <li>{t(key)}</li>)}
+  </ul>
+  <p>{t("delete.retentionBody")}</p>
+
+  <h2>{t("delete.inAppHeading")}</h2>
+  <ol>
+    {inAppSteps.map((key) => <li>{t(key)}</li>)}
+  </ol>
+
+  <h2>{t("delete.webHeading")}</h2>
+  <p>{t("delete.webBody")}</p>
+  <DeleteAccountForm locale={locale} />
+
+  <h2>{t("delete.emailHeading")}</h2>
+  <p>
+    {emailBefore}<a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>{emailAfter}
+  </p>
+</BaseLayout>

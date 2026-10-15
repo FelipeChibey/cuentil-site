@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { defaultLocale, localePath, locales, useTranslations } from "../i18n";
+---
+
+<BaseLayout locale={defaultLocale} path="" title={useTranslations(defaultLocale)("notFound.title")}>
+  {
+    locales.map((l) => {
+      const t = useTranslations(l);
+      return (
+        <section lang={l} class="not-found">
+          <h1>{t("notFound.title")}</h1>
+          <p>{t("notFound.body")}</p>
+          <p>
+            <a href={localePath(l)}>{t("notFound.home")}</a>
+          </p>
+        </section>
+      );
+    })
+  }
+</BaseLayout>
+
+<style>
+  .not-found + .not-found {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-outline);
+  }
+
+  .not-found + .not-found h1 {
+    font-size: 1.5rem;
+  }
+</style>

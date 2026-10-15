@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { localePath, localeStaticPaths, requireLocale, useTranslations } from "../../i18n";
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const locale = requireLocale(Astro.params.lang);
+const t = useTranslations(locale);
+
+const features = ["quickLog", "accounts", "budgets", "offline"] as const;
+---
+
+<BaseLayout locale={locale} path="">
+  <section class="hero">
+    <h1>{t("home.title")}</h1>
+    <p class="lead">{t("home.lead")}</p>
+  </section>
+
+  <section class="features">
+    {
+      features.map((feature) => (
+        <article class="card">
+          <h2>{t(`home.feature.${feature}.title`)}</h2>
+          <p>{t(`home.feature.${feature}.body`)}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="card legal">
+    <h2>{t("home.legalHeading")}</h2>
+    <p>{t("home.legalBody")}</p>
+    <p class="legal-links">
+      <a href={localePath(locale, "privacy")}>{t("nav.privacy")}</a>
+      <a href={localePath(locale, "delete-account")}>{t("nav.deleteAccount")}</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    margin-bottom: 2rem;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .features h2 {
+    font-size: 1.05rem;
+    margin: 0 0 0.35rem;
+  }
+
+  .features p {
+    margin: 0;
+    color: var(--color-on-surface-variant);
+  }
+
+  .legal {
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+    border-color: transparent;
+  }
+
+  .legal h2 {
+    margin-top: 0;
+  }
+
+  .legal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .legal-links a {
+    color: inherit;
+  }
+</style>

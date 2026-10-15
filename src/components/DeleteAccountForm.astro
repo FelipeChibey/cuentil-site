@@ -1,0 +1,208 @@
+---
+import { useTranslations, type Locale, type TranslationKey } from "../i18n";
+import { site } from "../site";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const messageKeys = {
+  signingIn: "delete.status.signingIn",
+  deleting: "delete.status.deleting",
+  invalidCredentials: "delete.error.invalidCredentials",
+  emailNotConfirmed: "delete.error.emailNotConfirmed",
+  rateLimited: "delete.error.rateLimited",
+  network: "delete.error.network",
+  generic: "delete.error.generic",
+} as const satisfies Record<string, TranslationKey>;
+
+const messages = Object.fromEntries(
+  Object.entries(messageKeys).map(([name, key]) => [name, t(key, { email: site.contactEmail })]),
+);
+---
+
+<delete-account-form data-messages={JSON.stringify(messages)}>
+  <form class="card form" novalidate>
+    <label>
+      <span>{t("delete.emailLabel")}</span>
+      <input name="email" type="email" autocomplete="username" required />
+    </label>
+    <label>
+      <span>{t("delete.passwordLabel")}</span>
+      <input name="password" type="password" autocomplete="current-password" required />
+    </label>
+    <label class="confirm">
+      <input name="confirm" type="checkbox" required />
+      <span>{t("delete.confirmLabel")}</span>
+    </label>
+    <button type="submit" disabled>{t("delete.submit")}</button>
+    <p class="status" role="status" aria-live="polite"></p>
+  </form>
+  <div class="card success" role="alert" tabindex="-1" hidden>
+    <h3>{t("delete.successHeading")}</h3>
+    <p>{t("delete.successBody")}</p>
+  </div>
+</delete-account-form>
+
+<script>
+  import { createClient, FunctionsFetchError, isAuthApiError, isAuthRetryableFetchError } from "@supabase/supabase-js";
+  import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from "astro:env/client";
+
+  type Messages = Record<
+    "signingIn" | "deleting" | "invalidCredentials" | "emailNotConfirmed" | "rateLimited" | "network" | "generic",
+    string
+  >;
+
+  class DeleteAccountForm extends HTMLElement {
+    connectedCallback() {
+      const messages = JSON.parse(this.dataset.messages ?? "{}") as Messages;
+      const form = this.querySelector("form")!;
+      const button = form.querySelector("button")!;
+      const status = form.querySelector<HTMLElement>(".status")!;
+      const success = this.querySelector<HTMLElement>(".success")!;
+
+      const setStatus = (text: string, isError = false) => {
+        status.textContent = text;
+        status.classList.toggle("error", isError);
+      };
+      const syncButton = () => {
+        button.disabled = !form.checkValidity();
+      };
+
+      form.addEventListener("input", syncButton);
+      form.addEventListener("change", syncButton);
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!form.checkValidity()) return;
+
+        const data = new FormData(form);
+        const email = String(data.get("email")).trim();
+        const password = String(data.get("password"));
+        const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
+          auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+        });
+
+        form.inert = true;
+        button.disabled = true;
+        setStatus(messages.signingIn);
+
+        try {
+          const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+          if (signInError) {
+            setStatus(this.signInErrorMessage(signInError, messages), true);
+            return;
+          }
+
+          setStatus(messages.deleting);
+          const { error: deleteError } = await supabase.functions.invoke("delete-account", { method: "POST" });
+          if (deleteError) {
+            setStatus(deleteError instanceof FunctionsFetchError ? messages.network : messages.generic, true);
+            return;
+          }
+
+          form.reset();
+          form.hidden = true;
+          success.hidden = false;
+          success.focus();
+        } catch {
+          setStatus(messages.network, true);
+        } finally {
+          form.inert = false;
+          syncButton();
+        }
+      });
+    }
+
+    signInErrorMessage(error: unknown, messages: Messages): string {
+      if (isAuthRetryableFetchError(error)) return messages.network;
+      if (!isAuthApiError(error)) return messages.generic;
+      if (error.code === "invalid_credentials") return messages.invalidCredentials;
+      if (error.code === "email_not_confirmed") return messages.emailNotConfirmed;
+      if (error.status === 429) return messages.rateLimited;
+      return messages.generic;
+    }
+  }
+
+  customElements.define("delete-account-form", DeleteAccountForm);
+</script>
+
+<style>
+  .form {
+    display: grid;
+    gap: 1rem;
+  }
+
+  label {
+    display: grid;
+    gap: 0.35rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    font: inherit;
+    font-weight: 400;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--color-outline);
+    border-radius: var(--radius-sm);
+    background: var(--color-background);
+    color: var(--color-on-surface);
+    width: 100%;
+  }
+
+  .confirm {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 0.6rem;
+    font-weight: 400;
+  }
+
+  .confirm input {
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.25rem;
+    accent-color: var(--color-error);
+  }
+
+  button {
+    font: inherit;
+    font-weight: 600;
+    padding: 0.8rem 1rem;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--color-error);
+    color: var(--color-on-error);
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .status {
+    margin: 0;
+    min-height: 1.65em;
+    color: var(--color-on-surface-variant);
+  }
+
+  .status.error {
+    color: var(--color-error);
+    font-weight: 600;
+  }
+
+  .success {
+    background: var(--color-success-container);
+    color: var(--color-on-success-container);
+    border-color: transparent;
+  }
+
+  .success p {
+    margin: 0;
+  }
+</style>
