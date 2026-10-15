@@ -17,13 +17,13 @@ const deletedItems = [
   "delete.whatItem.categories",
   "delete.whatItem.settings",
 ] as const;
-const inAppSteps = ["delete.inAppStep1", "delete.inAppStep2", "delete.inAppStep3"] as const;
+const inAppSteps = ["delete.inAppStep1", "delete.inAppStep2", "delete.inAppStep3", "delete.inAppStep4"] as const;
 const [emailBefore, emailAfter] = t("delete.emailBody").split("{email}");
 ---
 
 <BaseLayout locale={locale} path="delete-account" title={t("delete.title")} description={t("delete.description")}>
   <h1>{t("delete.title")}</h1>
-  <p class="lead">{t("delete.lead", { app: site.appName })}</p>
+  <p class="lead">{t("delete.lead")}</p>
 
   <h2>{t("delete.whatHeading")}</h2>
   <p>{t("delete.whatBody")}</p>

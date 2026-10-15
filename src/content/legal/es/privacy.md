@@ -1,14 +1,14 @@
 ---
 title: Política de privacidad
-description: Qué datos recoge Traki, para qué, quién los trata y cómo ejercer tus derechos.
+description: Qué datos recoge {app}, para qué, quién los trata y cómo ejercer tus derechos.
 updated: 2026-10-15
 ---
 
-Traki es una app Android para registrar y controlar gastos. Esta política explica qué datos personales trata la app y cómo. Se aplica a la app Traki y a este sitio web.
+{app} es una app Android para registrar y controlar gastos. Esta política explica qué datos personales trata la app y cómo. Se aplica a la app {app} y a este sitio web.
 
 ## Responsable
 
-Traki está desarrollada por **Felipe Chibey**, desarrollador individual y responsable del tratamiento de los datos descritos aquí. Para cualquier consulta o solicitud sobre privacidad, escribe a [traki.app@gmail.com](mailto:traki.app@gmail.com).
+{app} está desarrollada por **Felipe Chibey**, desarrollador individual y responsable del tratamiento de los datos descritos aquí. Para cualquier consulta o solicitud sobre privacidad, escribe a [{email}](mailto:{email}).
 
 ## Qué datos recogemos
 
@@ -22,7 +22,7 @@ Traki está desarrollada por **Felipe Chibey**, desarrollador individual y respo
 
 **Datos técnicos.** Como cualquier servicio en línea, nuestros proveedores de infraestructura conservan registros estándar de las peticiones (como la dirección IP y la hora) por seguridad y funcionamiento, durante un tiempo limitado según sus propias políticas.
 
-**Qué no recogemos.** Traki no tiene anuncios, ni analítica, ni SDK de seguimiento, ni servicio de informes de errores. No accede a tu ubicación, tus contactos ni tus cuentas bancarias. No vendemos tus datos ni los compartimos con fines publicitarios.
+**Qué no recogemos.** {app} no tiene anuncios, ni analítica, ni SDK de seguimiento, ni servicio de informes de errores. No accede a tu ubicación, tus contactos ni tus cuentas bancarias. No vendemos tus datos ni los compartimos con fines publicitarios.
 
 ## Datos en tu dispositivo
 
@@ -30,7 +30,7 @@ La app guarda una copia local de tus registros para funcionar sin conexión, ade
 
 ## Para qué los usamos
 
-Usamos tus datos solo para ofrecer las funciones de Traki: sincronizar tus registros, interpretar los gastos que escribes, convertir entre monedas y seguir tus presupuestos. La base legal es la ejecución del contrato contigo (artículo 6.1.b del RGPD). La limitación de uso y los registros de seguridad se basan en nuestro interés legítimo en mantener el servicio seguro y disponible (artículo 6.1.f del RGPD).
+Usamos tus datos solo para ofrecer las funciones de {app}: sincronizar tus registros, interpretar los gastos que escribes, convertir entre monedas y seguir tus presupuestos. La base legal es la ejecución del contrato contigo (artículo 6.1.b del RGPD). La limitación de uso y los registros de seguridad se basan en nuestro interés legítimo en mantener el servicio seguro y disponible (artículo 6.1.f del RGPD).
 
 ## Quién trata tus datos
 
@@ -51,7 +51,7 @@ Conservamos tus datos mientras tengas una cuenta. Cuando eliminas tu cuenta, tu 
 
 ## Tus derechos
 
-Tienes derecho a acceder, rectificar, suprimir, limitar u oponerte al tratamiento de tus datos personales, y a recibirlos en un formato portable. Puedes editar o borrar tus registros directamente en la app, y puedes eliminar tu cuenta en cualquier momento [desde la app o desde este sitio web](../delete-account/). Para cualquier otra cosa, escribe a [traki.app@gmail.com](mailto:traki.app@gmail.com); respondemos en un plazo máximo de un mes.
+Tienes derecho a acceder, rectificar, suprimir, limitar u oponerte al tratamiento de tus datos personales, y a recibirlos en un formato portable. Puedes editar o borrar tus registros directamente en la app, y puedes eliminar tu cuenta en cualquier momento [desde la app o desde este sitio web](../delete-account/). Para cualquier otra cosa, escribe a [{email}](mailto:{email}); respondemos en un plazo máximo de un mes.
 
 Si crees que tus datos se tratan de forma ilícita, puedes presentar una reclamación ante la Agencia Española de Protección de Datos ([AEPD](https://www.aepd.es)) o ante la autoridad de protección de datos de tu país.
 
@@ -61,7 +61,7 @@ Todo el tráfico entre la app y nuestros servidores va cifrado (HTTPS). Cada reg
 
 ## Menores
 
-Traki no está dirigida a menores de 16 años y no recogemos sus datos a sabiendas.
+{app} no está dirigida a menores de 16 años y no recogemos sus datos a sabiendas.
 
 ## Cambios en esta política
 

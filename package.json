@@ -1,5 +1,5 @@
 {
-  "name": "traki-site",
+  "name": "cuentil-site",
   "type": "module",
   "private": true,
   "engines": {
@@ -12,9 +12,11 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/markdown-satteri": "^0.4.4",
     "@astrojs/sitemap": "^3.7.4",
     "@supabase/supabase-js": "^2.118.0",
-    "astro": "^7.4.0"
+    "astro": "^7.4.0",
+    "satteri": "^0.10.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

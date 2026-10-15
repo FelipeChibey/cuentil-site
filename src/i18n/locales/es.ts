@@ -1,7 +1,7 @@
 import type { TranslationKey } from "./en";
 
 export const es: Record<TranslationKey, string> = {
-  "meta.description": "Traki es una app Android para controlar gastos: escribe un gasto como lo dirías y Traki lo registra.",
+  "meta.description": "{app} es una app Android para controlar gastos: escribe un gasto como lo dirías y {app} lo registra.",
   "nav.home": "Inicio",
   "nav.privacy": "Privacidad",
   "nav.deleteAccount": "Eliminar cuenta",
@@ -11,7 +11,7 @@ export const es: Record<TranslationKey, string> = {
   "footer.developer": "Desarrollado por {developer}",
 
   "home.title": "Controla tus gastos con solo escribirlos",
-  "home.lead": "Escribe “almuerzo 12,50” o “taxi 18 ayer” y Traki lo convierte en un gasto categorizado, en la cuenta y moneda correctas.",
+  "home.lead": "Escribe “almuerzo 12,50” o “taxi 18 ayer” y {app} lo convierte en un gasto categorizado, en la cuenta y moneda correctas.",
   "home.feature.quickLog.title": "Registro en lenguaje natural",
   "home.feature.quickLog.body": "Sin formularios: describe el gasto con tus palabras y edítalo después si hace falta.",
   "home.feature.accounts.title": "Cuentas y monedas",
@@ -21,12 +21,12 @@ export const es: Record<TranslationKey, string> = {
   "home.feature.offline.title": "Funciona sin conexión",
   "home.feature.offline.body": "Los gastos que registras sin conexión quedan en cola y se sincronizan en cuanto vuelves a tener red.",
   "home.legalHeading": "Tus datos",
-  "home.legalBody": "Lee cómo trata Traki tus datos, o elimina tu cuenta y todo su contenido.",
+  "home.legalBody": "Lee cómo trata {app} tus datos, o elimina tu cuenta y todo su contenido.",
 
   "privacy.updated": "Última actualización: {date}",
 
-  "delete.title": "Eliminar tu cuenta de Traki",
-  "delete.description": "Cómo eliminar tu cuenta de Traki y todos los datos asociados, desde la app o desde esta página.",
+  "delete.title": "Eliminar tu cuenta de {app}",
+  "delete.description": "Cómo eliminar tu cuenta de {app} y todos los datos asociados, desde la app o desde esta página.",
   "delete.lead": "Puedes eliminar tu cuenta de {app} de forma permanente cuando quieras. Esta página explica qué se elimina y te permite hacerlo sin tener la app instalada.",
   "delete.whatHeading": "Qué se elimina",
   "delete.whatBody": "La eliminación es inmediata y completa. Eliminamos tu acceso (email y contraseña) y todos los registros vinculados a tu cuenta:",
@@ -36,11 +36,12 @@ export const es: Record<TranslationKey, string> = {
   "delete.whatItem.settings": "Ajustes y contadores de uso",
   "delete.retentionBody": "No se conserva nada después y nada se puede recuperar. Si eliminas desde la app, también se borran los datos guardados en tu teléfono; si lo haces desde esta página, desinstala la app para borrar su copia local.",
   "delete.inAppHeading": "Opción 1: desde la app",
-  "delete.inAppStep1": "Abre Traki y ve a Ajustes.",
+  "delete.inAppStep1": "Abre {app} y ve a Ajustes.",
   "delete.inAppStep2": "En “Zona de peligro”, toca “Eliminar cuenta”.",
-  "delete.inAppStep3": "Escribe el email de tu cuenta para confirmar.",
+  "delete.inAppStep3": "Lee qué se elimina, escribe el email de tu cuenta y toca “Eliminar cuenta”.",
+  "delete.inAppStep4": "Confirma con “Eliminar definitivamente”.",
   "delete.webHeading": "Opción 2: desde esta página",
-  "delete.webBody": "Inicia sesión con el email y la contraseña de Traki. Tu cuenta se elimina en cuanto confirmas.",
+  "delete.webBody": "Inicia sesión con el email y la contraseña de {app}. Tu cuenta se elimina en cuanto confirmas.",
   "delete.emailLabel": "Email",
   "delete.passwordLabel": "Contraseña",
   "delete.confirmLabel": "Entiendo que mi cuenta y todos sus datos se eliminarán de forma permanente.",
@@ -55,7 +56,7 @@ export const es: Record<TranslationKey, string> = {
   "delete.successHeading": "Tu cuenta ha sido eliminada",
   "delete.successBody": "Tu acceso y todos tus datos se han borrado. Ya puedes desinstalar la app.",
   "delete.emailHeading": "Opción 3: por email",
-  "delete.emailBody": "Si no puedes iniciar sesión, escribe a {email} desde el email de tu cuenta de Traki y la eliminaremos en un plazo de 30 días.",
+  "delete.emailBody": "Si no puedes iniciar sesión, escribe a {email} desde el email de tu cuenta de {app} y la eliminaremos en un plazo de 30 días.",
 
   "notFound.title": "Página no encontrada",
   "notFound.body": "Esta página no existe.",

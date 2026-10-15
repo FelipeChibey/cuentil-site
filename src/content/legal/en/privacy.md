@@ -1,14 +1,14 @@
 ---
 title: Privacy Policy
-description: What data Traki collects, why, who processes it, and how to exercise your rights.
+description: What data {app} collects, why, who processes it, and how to exercise your rights.
 updated: 2026-10-15
 ---
 
-Traki is an Android app for logging and tracking expenses. This policy explains what personal data the app handles and how. It applies to the Traki app and to this website.
+{app} is an Android app for logging and tracking expenses. This policy explains what personal data the app handles and how. It applies to the {app} app and to this website.
 
 ## Who is responsible
 
-Traki is developed by **Felipe Chibey**, an individual developer, who is the data controller for the data described here. For any privacy question or request, write to [traki.app@gmail.com](mailto:traki.app@gmail.com).
+{app} is developed by **Felipe Chibey**, an individual developer, who is the data controller for the data described here. For any privacy question or request, write to [{email}](mailto:{email}).
 
 ## What data we collect
 
@@ -22,7 +22,7 @@ Traki is developed by **Felipe Chibey**, an individual developer, who is the dat
 
 **Technical data.** Like any online service, our infrastructure providers keep standard request logs (such as IP address and timestamps) for security and operation, for a limited time under their own policies.
 
-**What we don't collect.** Traki has no ads, no analytics, no tracking SDKs and no crash-reporting service. It doesn't access your location, contacts or bank accounts. We don't sell your data or share it for advertising.
+**What we don't collect.** {app} has no ads, no analytics, no tracking SDKs and no crash-reporting service. It doesn't access your location, contacts or bank accounts. We don't sell your data or share it for advertising.
 
 ## Data on your device
 
@@ -30,7 +30,7 @@ The app keeps a local copy of your records so it works offline, plus a queue of 
 
 ## Why we use it
 
-We use your data only to provide Traki's features: syncing your records, interpreting the expenses you type, converting between currencies and tracking budgets. The legal basis is the performance of our contract with you (Article 6(1)(b) GDPR). Rate-limiting and security logs rely on our legitimate interest in keeping the service secure and available (Article 6(1)(f) GDPR).
+We use your data only to provide {app}'s features: syncing your records, interpreting the expenses you type, converting between currencies and tracking budgets. The legal basis is the performance of our contract with you (Article 6(1)(b) GDPR). Rate-limiting and security logs rely on our legitimate interest in keeping the service secure and available (Article 6(1)(f) GDPR).
 
 ## Who processes your data
 
@@ -51,7 +51,7 @@ We keep your data for as long as you have an account. When you delete your accou
 
 ## Your rights
 
-You have the right to access, correct, delete, restrict or object to the processing of your personal data, and to receive it in a portable format. You can edit or delete your records directly in the app, and you can delete your account at any time [from the app or from this website](../delete-account/). For anything else, email [traki.app@gmail.com](mailto:traki.app@gmail.com); we answer within one month.
+You have the right to access, correct, delete, restrict or object to the processing of your personal data, and to receive it in a portable format. You can edit or delete your records directly in the app, and you can delete your account at any time [from the app or from this website](../delete-account/). For anything else, email [{email}](mailto:{email}); we answer within one month.
 
 If you think your data is being handled unlawfully, you can complain to the Spanish Data Protection Agency ([AEPD](https://www.aepd.es)) or to the data protection authority where you live.
 
@@ -61,7 +61,7 @@ All traffic between the app and our servers is encrypted (HTTPS). Every record i
 
 ## Children
 
-Traki is not intended for children under 16, and we don't knowingly collect their data.
+{app} is not intended for children under 16, and we don't knowingly collect their data.
 
 ## Changes to this policy
 
