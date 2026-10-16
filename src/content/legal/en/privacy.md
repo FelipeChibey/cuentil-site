@@ -1,7 +1,7 @@
 ---
 title: Privacy Policy
 description: What data {app} collects, why, who processes it, and how to exercise your rights.
-updated: 2026-10-15
+updated: 2026-10-16
 ---
 
 {app} is an Android app for logging and tracking expenses. This policy explains what personal data the app handles and how. It applies to the {app} app and to this website.
@@ -12,7 +12,7 @@ updated: 2026-10-15
 
 ## What data we collect
 
-**Account data.** Your email address and password, used to create your account and sign you in. Passwords are stored hashed by our authentication provider; nobody can read them.
+**Account data.** Your name, email address and password, used to create your account and sign you in. Passwords are stored hashed by our authentication provider; nobody can read them.
 
 **The financial records you enter.** Expenses and income (amount, currency, category, date and a short description), your accounts (name and currency), custom categories, budgets and app settings such as your default currency and language.
 
@@ -41,7 +41,7 @@ We use the following providers, which process data on our behalf and only for th
 | [Supabase](https://supabase.com/privacy) | Database, authentication and server functions | European Union (Ireland) |
 | [Groq](https://groq.com/privacy-policy) | Interpreting the text you type to log an expense | United States |
 
-Groq receives only the text you typed, the names of your categories and accounts, your account currencies and today's date — never your email or any identifier of your account. Groq does not use this data to train models and may retain it for up to 30 days for abuse monitoring and troubleshooting. Transfers to the United States are covered by the safeguards in the provider's data-processing terms, such as the EU Standard Contractual Clauses.
+Groq receives only the text you typed, the names of your categories and accounts, your account currencies and today's date. It never receives your name, your email or any identifier of your account. Groq does not use this data to train models and may retain it for up to 30 days for abuse monitoring and troubleshooting. Transfers to the United States are covered by the safeguards in the provider's data-processing terms, such as the EU Standard Contractual Clauses.
 
 Currency exchange rates are fetched by our server from a public rates service; no personal data is sent to it.
 
