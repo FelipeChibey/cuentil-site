@@ -1,7 +1,7 @@
 ---
 title: Política de privacidad
 description: Qué datos recoge {app}, para qué, quién los trata y cómo ejercer tus derechos.
-updated: 2026-10-15
+updated: 2026-10-16
 ---
 
 {app} es una app Android para registrar y controlar gastos. Esta política explica qué datos personales trata la app y cómo. Se aplica a la app {app} y a este sitio web.
@@ -12,7 +12,7 @@ updated: 2026-10-15
 
 ## Qué datos recogemos
 
-**Datos de la cuenta.** Tu email y tu contraseña, para crear tu cuenta e iniciar sesión. Nuestro proveedor de autenticación guarda las contraseñas cifradas mediante hash; nadie puede leerlas.
+**Datos de la cuenta.** Tu nombre, tu email y tu contraseña, para crear tu cuenta e iniciar sesión. Nuestro proveedor de autenticación guarda las contraseñas cifradas mediante hash; nadie puede leerlas.
 
 **Los registros financieros que introduces.** Gastos e ingresos (importe, moneda, categoría, fecha y una descripción breve), tus cuentas (nombre y moneda), categorías personalizadas, presupuestos y ajustes de la app como tu moneda e idioma predeterminados.
 
@@ -41,7 +41,7 @@ Usamos los siguientes proveedores, que tratan datos por cuenta nuestra y solo co
 | [Supabase](https://supabase.com/privacy) | Base de datos, autenticación y funciones de servidor | Unión Europea (Irlanda) |
 | [Groq](https://groq.com/privacy-policy) | Interpretar el texto que escribes para registrar un gasto | Estados Unidos |
 
-Groq recibe solo el texto que escribiste, los nombres de tus categorías y cuentas, las monedas de tus cuentas y la fecha de hoy; nunca tu email ni ningún identificador de tu cuenta. Groq no usa estos datos para entrenar modelos y puede conservarlos hasta 30 días para detectar abusos y resolver incidencias. Las transferencias a Estados Unidos están cubiertas por las garantías de las condiciones de tratamiento de datos del proveedor, como las Cláusulas Contractuales Tipo de la UE.
+Groq recibe solo el texto que escribiste, los nombres de tus categorías y cuentas, las monedas de tus cuentas y la fecha de hoy. Nunca recibe tu nombre, tu email ni ningún identificador de tu cuenta. Groq no usa estos datos para entrenar modelos y puede conservarlos hasta 30 días para detectar abusos y resolver incidencias. Las transferencias a Estados Unidos están cubiertas por las garantías de las condiciones de tratamiento de datos del proveedor, como las Cláusulas Contractuales Tipo de la UE.
 
 Nuestro servidor obtiene los tipos de cambio de un servicio público de cotizaciones; no se le envía ningún dato personal.
 
