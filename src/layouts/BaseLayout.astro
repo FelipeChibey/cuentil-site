@@ -10,9 +10,10 @@ interface Props {
   path: string;
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
-const { locale, path, title, description } = Astro.props;
+const { locale, path, title, description, noindex = false } = Astro.props;
 const t = useTranslations(locale);
 const pageTitle = title ? `${title} · ${site.appName}` : site.appName;
 const pageDescription = description ?? t("meta.description");
@@ -33,6 +34,7 @@ const nav = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
     <link rel="canonical" href={absolute(locale)} />
     {locales.map((l) => <link rel="alternate" hreflang={localeTags[l]} href={absolute(l)} />)}

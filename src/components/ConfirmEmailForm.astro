@@ -1,0 +1,155 @@
+---
+import { useTranslations, type Locale, type TranslationKey } from "../i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const messageKeys = {
+  confirming: "confirm.status.confirming",
+  missingToken: "confirm.error.missingToken",
+  expired: "confirm.error.expired",
+  rateLimited: "confirm.error.rateLimited",
+  network: "confirm.error.network",
+  generic: "confirm.error.generic",
+} as const satisfies Record<string, TranslationKey>;
+
+const messages = Object.fromEntries(Object.entries(messageKeys).map(([name, key]) => [name, t(key)]));
+---
+
+<confirm-email-form data-messages={JSON.stringify(messages)}>
+  <div class="card form">
+    <button type="button" disabled>{t("confirm.submit")}</button>
+    <p class="status" role="status" aria-live="polite"></p>
+  </div>
+  <div class="card success" role="alert" tabindex="-1" hidden>
+    <h3>{t("confirm.successHeading")}</h3>
+    <p>{t("confirm.successBody")}</p>
+  </div>
+</confirm-email-form>
+
+<script>
+  import { createClient, isAuthApiError, isAuthRetryableFetchError, type EmailOtpType } from "@supabase/supabase-js";
+  import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from "astro:env/client";
+
+  type Messages = Record<"confirming" | "missingToken" | "expired" | "rateLimited" | "network" | "generic", string>;
+
+  const otpTypes: readonly EmailOtpType[] = ["email", "signup"];
+
+  class ConfirmEmailForm extends HTMLElement {
+    connectedCallback() {
+      const messages = JSON.parse(this.dataset.messages ?? "{}") as Messages;
+      const card = this.querySelector<HTMLElement>(".form")!;
+      const button = card.querySelector("button")!;
+      const status = card.querySelector<HTMLElement>(".status")!;
+      const success = this.querySelector<HTMLElement>(".success")!;
+
+      const setStatus = (text: string, isError = false) => {
+        status.textContent = text;
+        status.classList.toggle("error", isError);
+      };
+      const forgetToken = () => history.replaceState(null, "", location.pathname);
+
+      const params = new URLSearchParams(location.search);
+      const tokenHash = params.get("token_hash");
+      const requestedType = params.get("type") as EmailOtpType | null;
+      const type = requestedType && otpTypes.includes(requestedType) ? requestedType : "email";
+
+      if (!tokenHash) {
+        button.hidden = true;
+        setStatus(messages.missingToken, true);
+        return;
+      }
+
+      // Verifying on load would let email link scanners spend the one-time token before the user arrives.
+      button.disabled = false;
+      button.addEventListener("click", async () => {
+        const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
+          auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+        });
+
+        button.disabled = true;
+        setStatus(messages.confirming);
+
+        try {
+          const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type });
+          if (error) {
+            const expired = isAuthApiError(error) && error.code === "otp_expired";
+            setStatus(expired ? messages.expired : this.errorMessage(error, messages), true);
+            if (expired) {
+              forgetToken();
+              button.hidden = true;
+            } else {
+              button.disabled = false;
+            }
+            return;
+          }
+
+          forgetToken();
+          card.hidden = true;
+          success.hidden = false;
+          success.focus();
+          await supabase.auth.signOut({ scope: "local" }).catch(() => {});
+        } catch {
+          setStatus(messages.network, true);
+          button.disabled = false;
+        }
+      });
+    }
+
+    errorMessage(error: unknown, messages: Messages): string {
+      if (isAuthRetryableFetchError(error)) return messages.network;
+      if (isAuthApiError(error) && error.status === 429) return messages.rateLimited;
+      return messages.generic;
+    }
+  }
+
+  customElements.define("confirm-email-form", ConfirmEmailForm);
+</script>
+
+<style>
+  .form {
+    display: grid;
+    gap: 1rem;
+  }
+
+  button {
+    font: inherit;
+    font-weight: 600;
+    padding: 0.8rem 1rem;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .status {
+    margin: 0;
+    min-height: 1.65em;
+    color: var(--color-on-surface-variant);
+  }
+
+  .status.error {
+    color: var(--color-error);
+    font-weight: 600;
+  }
+
+  .success {
+    background: var(--color-success-container);
+    color: var(--color-on-success-container);
+    border-color: transparent;
+  }
+
+  .success p {
+    margin: 0;
+  }
+</style>

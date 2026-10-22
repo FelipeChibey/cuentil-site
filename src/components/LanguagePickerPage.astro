@@ -1,0 +1,73 @@
+---
+import "../styles/global.css";
+import Logo from "./Logo.astro";
+import { defaultLocale, localeNames, localePath, locales, useTranslations } from "../i18n";
+import { site } from "../site";
+
+interface Props {
+  path?: string;
+}
+
+const { path = "" } = Astro.props;
+const targets = Object.fromEntries(locales.map((l) => [l, localePath(l, path)]));
+---
+
+<!doctype html>
+<html lang={defaultLocale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{site.appName}</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
+    <script is:inline define:vars={{ targets, defaultLocale }}>
+      const pick = () => {
+        try {
+          const saved = localStorage.getItem("locale");
+          if (saved && targets[saved]) return saved;
+        } catch {}
+        for (const tag of navigator.languages ?? [navigator.language]) {
+          const base = tag.toLowerCase().split("-")[0];
+          if (targets[base]) return base;
+        }
+        return defaultLocale;
+      };
+      location.replace(targets[pick()] + location.search);
+    </script>
+    <noscript><meta http-equiv="refresh" content={`0; url=${targets[defaultLocale]}`} /></noscript>
+  </head>
+  <body>
+    <main class="container picker">
+      <Logo size={56} />
+      <ul>
+        {
+          locales.map((l) => (
+            <li>
+              <a href={targets[l]} hreflang={l} lang={l}>
+                {useTranslations(l)("languagePicker.title")} · {localeNames[l]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+  </body>
+</html>
+
+<style>
+  .picker {
+    display: grid;
+    justify-items: center;
+    gap: 1.5rem;
+    padding-block: 20vh;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+    text-align: center;
+  }
+</style>
