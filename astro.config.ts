@@ -24,7 +24,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       i18n: { defaultLocale, locales: localeTags },
-      filter: (page) => page !== siteUrl.href,
+      filter: (page) => page !== siteUrl.href && !page.endsWith("/confirm/"),
     }),
   ],
   env: {

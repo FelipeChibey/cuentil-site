@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ConfirmEmailForm from "../../components/ConfirmEmailForm.astro";
+import { localeStaticPaths, requireLocale, useTranslations } from "../../i18n";
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const locale = requireLocale(Astro.params.lang);
+const t = useTranslations(locale);
+---
+
+<BaseLayout locale={locale} path="confirm" title={t("confirm.title")} description={t("confirm.description")} noindex>
+  <h1>{t("confirm.title")}</h1>
+  <p class="lead">{t("confirm.lead")}</p>
+  <ConfirmEmailForm locale={locale} />
+</BaseLayout>

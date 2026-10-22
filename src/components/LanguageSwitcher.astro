@@ -29,6 +29,7 @@ const t = useTranslations(locale);
 <script>
   for (const link of document.querySelectorAll<HTMLAnchorElement>("[data-locale-switch]")) {
     link.addEventListener("click", () => {
+      link.search = location.search;
       try {
         localStorage.setItem("locale", link.dataset.localeSwitch ?? "");
       } catch {}
